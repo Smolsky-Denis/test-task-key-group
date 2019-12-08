@@ -1,0 +1,11 @@
+.btn-pink {
+    background-color: #ff0060;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-pink:hover, .btn-pink:focus, .btn-pink.focus {
+    background-color: #eb005b;
+    color: #fff;
+    font-weight: bold;
+}

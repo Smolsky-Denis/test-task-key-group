@@ -21,10 +21,11 @@ export const Company = (props) => {
             element: 'title',
             text: 'Company',
             className: ''
-        }, createAccount,{
+        }, createAccount, {
             id: 2,
-            element: 'progress'
-        },{
+            element: 'progress',
+            progress: 60
+        }, {
             id: 3,
             element: 'input',
             name: 'company',
@@ -32,36 +33,22 @@ export const Company = (props) => {
             placeholder: 'Company Name(optional)',
             className: '',
             value: company,
-            onChange: (event)=> {
+            onChange: (event) => {
                 setCompany(event.target.value)
             }
-        },
-        // {
-        //     id: 5,
-        //     path: '/user-info',
-        //     element: 'link',
-        //     name: 'PREV STEP',
-        //     className: 'btn btn-danger'
-        // },{
-        //     id: 6,
-        //     element: 'button',
-        //     onClick: () => goToNextStep(),
-        //     name: 'NEXT STEP',
-        //     className: 'btn btn-danger'
-        // }
+        }
     ];
     const prevStep = {
-        path: '/user-info',
-        name: 'PREV STEP',
-        className: 'btn btn-danger'
-    }, nextSep = {
-        onClick: () => goToNextStep(),
-        name: 'NEXT STEP',
-        className: 'btn btn-danger'
-    };
+            path: '/user-info',
+            name: 'PREV STEP'
+        },
+        nextSep = {
+            onClick: () => goToNextStep(),
+            name: 'NEXT STEP'
+        };
 
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
-    return(
+    return (
         <div>
             {result}
             <div className='buttonFlexBetween'>

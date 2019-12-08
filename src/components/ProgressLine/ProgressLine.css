@@ -1,0 +1,7 @@
+.progress {
+    height: 8px;
+}
+
+.progress-bar {
+    background-image: linear-gradient(to bottom,#6dbee8 0%, #8ec8e8 100%);;
+}

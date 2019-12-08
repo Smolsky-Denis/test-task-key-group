@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import {createAccount} from "../../services/constants";
-import {ProgressLine} from "../../components/ProgressLine/ProgressLine";
 import {MapDataToPageElementsService} from "../../services/utils";
 import {useDispatch, useSelector} from "react-redux";
 import {verifyEmail} from "../../actions/emailActions";
@@ -15,7 +13,7 @@ export const EmailView = (props) => {
     const dispatch = useDispatch();
     const goToNextStep = () => {
         verifyEmail(JSON.stringify({email})).then((result) => {
-            if(result.status === 200) {
+            if (result.status === 200) {
                 setEmailValidation("");
                 dispatch({type: "SAVE_EMAIL", email});
                 props.history.push('/user-info');
@@ -35,7 +33,8 @@ export const EmailView = (props) => {
         // createAccount,
         {
             id: 2,
-            element: 'progress'
+            element: 'progress',
+            progress: 20
         }, {
             id: 3,
             element: 'input',
@@ -52,14 +51,13 @@ export const EmailView = (props) => {
     const button = {
         path: '/user-info',
         onClick: () => goToNextStep(),
-        name: 'NEXT STEP',
-        className: 'btn btn-danger'
+        name: 'NEXT STEP'
     };
 
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
     const title = {
-        text:<span>Create your VINchain account.<br/> Easy to use anytime, anywhere for everyone</span>
-};
+        text: <span>Create your VINchain account.<br/> Easy to use anytime, anywhere for everyone</span>
+    };
     return (
         <div>
             <Title data={title}/>

@@ -1,8 +1,8 @@
 import React from 'react';
-
+import './Button.css'
 
 export const Button = (props) => {
-    const {name, className, onClick} = props.data;
+    const {name, onClick} = props.data;
     // {/*<button type="button" className="btn btn-primary">Главный</button>*/}
     // {/*< button*/}
     // {/*type = "button"*/}
@@ -24,7 +24,7 @@ export const Button = (props) => {
 
     return (
         <div>
-            <button className={className} onClick={onClick} type="button">{name}</button>
+            <button className='btn btn-pink' onClick={onClick} type="button">{name}</button>
         </div>
     )
 };

@@ -36,7 +36,8 @@ export const CreateAccount = (props) => {
             className: ''
         }, createAccount, {
             id: 2,
-            element: 'progress'
+            element: 'progress',
+            progress: 100
         }, {
             id: 3,
             element: 'input',
@@ -46,7 +47,6 @@ export const CreateAccount = (props) => {
             onChange: (event) => {
                 setEmail(event.target.value)
             },
-            placeholder: 'E-mail',
             placeholder: 'E-mail',
             className: '',
             validation: emailValidation
@@ -60,7 +60,6 @@ export const CreateAccount = (props) => {
             },
             validation: firstNameValidation,
             type: 'text',
-            placeholder: 'First Name',
             placeholder: 'First Name',
             className: ''
         }, {
@@ -96,7 +95,7 @@ export const CreateAccount = (props) => {
             type: 'text',
             placeholder: 'Company Name(optional)',
             value: company,
-            onChange: (event)=> {
+            onChange: (event) => {
                 setCompany(event.target.value)
             },
             className: ''
@@ -114,16 +113,14 @@ export const CreateAccount = (props) => {
             id: 9,
             path: '/email',
             element: 'link',
-            name: 'PREV STEP',
-            className: 'btn btn-danger'
+            name: 'PREV STEP'
         },
 
     ];
-const button = {
-    onClick: () => {},
-    name: 'Create account',
-    className: 'btn btn-danger'
-}
+    const button = {
+        onClick: () => {},
+        name: 'Create account'
+    };
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
     return (
         <div>

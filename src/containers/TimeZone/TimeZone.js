@@ -3,11 +3,12 @@ import {createAccount} from "../../services/constants";
 import {MapDataToPageElementsService} from "../../services/utils";
 import {Button} from "../../components/Button/Button";
 import {Link} from "../../components/Link/Link";
+import {getAllTimezones, getTimezone} from 'countries-and-timezones';
 
 export const TimeZone = (props) => {
-    // const date = new Date();
-    // const offsetInHours = date.getTimezoneOffset() / 60;
-    // console.log(offsetInHours)
+
+    const currentTimezone = getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    const timezoneList = Object.values(getAllTimezones());
 
     const goToNextStep = () => {
         props.history.push('/create-account');
@@ -18,29 +19,30 @@ export const TimeZone = (props) => {
             element: 'title',
             text: 'Time Zone',
             className: ''
-        }, createAccount,{
+        }, createAccount, {
             id: 2,
-            element: 'progress'
-        },{
+            element: 'progress',
+            progress: 80
+        }, {
             id: 3,
-            element: 'input',
+            element: 'select',
             name: 'timeZone',
             type: 'text',
             placeholder: 'Select your timezone',
-            className: ''
+            className: '',
+            value: currentTimezone,
+            options: timezoneList
         }
     ];
     const prevStep = {
         path: '/company',
-        name: 'PREV STEP',
-        className: 'btn btn-danger'
+        name: 'PREV STEP'
     }, nextSep = {
         onClick: () => goToNextStep(),
-        name: 'NEXT STEP',
-        className: 'btn btn-danger'
+        name: 'NEXT STEP'
     };
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
-    return(
+    return (
         <div>
             {result}
             <div className='buttonFlexBetween'>

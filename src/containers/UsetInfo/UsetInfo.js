@@ -36,7 +36,8 @@ export const UserInfo = (props) => {
             className: ''
         }, createAccount, {
             id: 2,
-            element: 'progress'
+            element: 'progress',
+            progress: 40
         }, {
             id: 3,
             element: 'input',
@@ -79,12 +80,10 @@ export const UserInfo = (props) => {
     ];
     const prevStep = {
             path: '/email',
-            name: 'PREV STEP',
-            className: 'btn btn-danger'
+            name: 'PREV STEP'
         }, nextSep = {
         onClick: () => goToNextStep(),
-        name: 'NEXT STEP',
-        className: 'btn btn-danger'
+        name: 'NEXT STEP'
     };
 
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
