@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {createAccount} from "../../services/constants";
 import {MapDataToPageElementsService} from "../../services/utils";
+import {Button} from "../../components/Button/Button";
 
 
 export const CreateAccount = (props) => {
@@ -46,6 +47,7 @@ export const CreateAccount = (props) => {
                 setEmail(event.target.value)
             },
             placeholder: 'E-mail',
+            placeholder: 'E-mail',
             className: '',
             validation: emailValidation
         }, {
@@ -58,6 +60,7 @@ export const CreateAccount = (props) => {
             },
             validation: firstNameValidation,
             type: 'text',
+            placeholder: 'First Name',
             placeholder: 'First Name',
             className: ''
         }, {
@@ -113,19 +116,21 @@ export const CreateAccount = (props) => {
             element: 'link',
             name: 'PREV STEP',
             className: 'btn btn-danger'
-        }, {
-            id: 10,
-            element: 'button',
-            onClick: () => {},
-            name: 'Create account',
-            className: 'btn btn-danger'
-        }
-    ];
+        },
 
+    ];
+const button = {
+    onClick: () => {},
+    name: 'Create account',
+    className: 'btn btn-danger'
+}
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
     return (
         <div>
             {result}
+            <div>
+                <Button data={button}/>
+            </div>
         </div>
     )
 };

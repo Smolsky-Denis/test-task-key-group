@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {createAccount} from "../../services/constants";
 import {MapDataToPageElementsService} from "../../services/utils";
 import {useDispatch, useSelector} from "react-redux";
+import {Link} from "../../components/Link/Link";
+import {Button} from "../../components/Button/Button";
 
 
 export const Company = (props) => {
@@ -33,25 +35,39 @@ export const Company = (props) => {
             onChange: (event)=> {
                 setCompany(event.target.value)
             }
-        },{
-            id: 5,
-            path: '/user-info',
-            element: 'link',
-            name: 'PREV STEP',
-            className: 'btn btn-danger'
-        },{
-            id: 6,
-            element: 'button',
-            onClick: () => goToNextStep(),
-            name: 'NEXT STEP',
-            className: 'btn btn-danger'
-        }
+        },
+        // {
+        //     id: 5,
+        //     path: '/user-info',
+        //     element: 'link',
+        //     name: 'PREV STEP',
+        //     className: 'btn btn-danger'
+        // },{
+        //     id: 6,
+        //     element: 'button',
+        //     onClick: () => goToNextStep(),
+        //     name: 'NEXT STEP',
+        //     className: 'btn btn-danger'
+        // }
     ];
+    const prevStep = {
+        path: '/user-info',
+        name: 'PREV STEP',
+        className: 'btn btn-danger'
+    }, nextSep = {
+        onClick: () => goToNextStep(),
+        name: 'NEXT STEP',
+        className: 'btn btn-danger'
+    };
 
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
     return(
         <div>
             {result}
+            <div className='buttonFlexBetween'>
+                <Link data={prevStep}/>
+                <Button data={nextSep}/>
+            </div>
         </div>
     )
 };

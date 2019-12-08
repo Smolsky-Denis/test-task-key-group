@@ -1,14 +1,15 @@
 import React from 'react';
 import {createAccount} from "../../services/constants";
 import {MapDataToPageElementsService} from "../../services/utils";
-
+import {Button} from "../../components/Button/Button";
+import {Link} from "../../components/Link/Link";
 
 export const TimeZone = (props) => {
     // const date = new Date();
     // const offsetInHours = date.getTimezoneOffset() / 60;
     // console.log(offsetInHours)
 
-    const handleClick = () => {
+    const goToNextStep = () => {
         props.history.push('/create-account');
     };
     const pageFields = [
@@ -27,25 +28,25 @@ export const TimeZone = (props) => {
             type: 'text',
             placeholder: 'Select your timezone',
             className: ''
-        },{
-            id: 5,
-            path: '/company',
-            element: 'link',
-            name: 'PREV STEP',
-            className: 'btn btn-danger'
-        },{
-            id: 6,
-            element: 'button',
-            onClick: () => handleClick(),
-            name: 'NEXT STEP',
-            className: 'btn btn-danger'
         }
     ];
-
+    const prevStep = {
+        path: '/company',
+        name: 'PREV STEP',
+        className: 'btn btn-danger'
+    }, nextSep = {
+        onClick: () => goToNextStep(),
+        name: 'NEXT STEP',
+        className: 'btn btn-danger'
+    };
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
     return(
         <div>
             {result}
+            <div className='buttonFlexBetween'>
+                <Link data={prevStep}/>
+                <Button data={nextSep}/>
+            </div>
         </div>
     )
 };

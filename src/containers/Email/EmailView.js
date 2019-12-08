@@ -4,6 +4,8 @@ import {ProgressLine} from "../../components/ProgressLine/ProgressLine";
 import {MapDataToPageElementsService} from "../../services/utils";
 import {useDispatch, useSelector} from "react-redux";
 import {verifyEmail} from "../../actions/emailActions";
+import {Title} from "../../components/Title/Title";
+import {Button} from "../../components/Button/Button";
 
 
 export const EmailView = (props) => {
@@ -24,40 +26,49 @@ export const EmailView = (props) => {
     };
 
     const pageFields = [
+        // {
+        //     id: 0,
+        //     element: 'title',
+        //     text: 'title EMAIL',
+        //     className: ''
+        // },
+        // createAccount,
         {
-            id: 0,
-            element: 'title',
-            text: 'title EMAIL',
-            className: ''
-        }, createAccount, {
             id: 2,
             element: 'progress'
         }, {
             id: 3,
             element: 'input',
             name: 'email',
+            placeholder: 'E-mail',
             type: 'email',
             value: email,
             onChange: (event) => {
                 setEmail(event.target.value)
             },
-            placeholder: 'E-mail',
-            className: '',
             validation: emailValidation
-        }, {
-            id: 5,
-            path: '/user-info',
-            element: 'button',
-            onClick: () => goToNextStep(),
-            name: 'NEXT STEP',
-            className: 'btn btn-danger'
         }
     ];
+    const button = {
+        path: '/user-info',
+        onClick: () => goToNextStep(),
+        name: 'NEXT STEP',
+        className: 'btn btn-danger'
+    };
 
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
+    const title = {
+        text:<span>Create your VINchain account.<br/> Easy to use anytime, anywhere for everyone</span>
+};
     return (
         <div>
+            <Title data={title}/>
+            {/*<Title text='CREATE ACCOUNT'/>*/}
             {result}
+
+            <div>
+                <Button data={button}/>
+            </div>
         </div>
     )
 };

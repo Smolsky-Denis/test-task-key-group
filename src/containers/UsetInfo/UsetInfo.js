@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {createAccount} from "../../services/constants";
 import {MapDataToPageElementsService} from "../../services/utils";
+import {Button} from "../../components/Button/Button";
+import {Link} from "../../components/Link/Link";
 
 export const UserInfo = (props) => {
     const formStateFirstName = useSelector(state => state.formState.firstName);
@@ -39,8 +41,8 @@ export const UserInfo = (props) => {
             id: 3,
             element: 'input',
             name: 'firstName',
-            type: 'text',
             placeholder: 'First Name',
+            type: 'text',
             className: '',
             value: firstName,
             onChange: (event) => {
@@ -51,8 +53,8 @@ export const UserInfo = (props) => {
             id: 4,
             element: 'input',
             name: 'lastName',
-            type: 'text',
             placeholder: 'Last Name',
+            type: 'text',
             className: '',
             value: lastName,
             onChange: (event) => {
@@ -73,25 +75,26 @@ export const UserInfo = (props) => {
             onChange: (event) => {
                 setGender(event.target.value)
             }
-        }, {
-            id: 6,
+        },
+    ];
+    const prevStep = {
             path: '/email',
-            element: 'link',
             name: 'PREV STEP',
             className: 'btn btn-danger'
-        }, {
-            id: 7,
-            element: 'button',
-            onClick: () => goToNextStep(),
-            name: 'NEXT STEP',
-            className: 'btn btn-danger'
-        }
-    ];
+        }, nextSep = {
+        onClick: () => goToNextStep(),
+        name: 'NEXT STEP',
+        className: 'btn btn-danger'
+    };
 
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
     return (
         <div>
             {result}
+            <div className='buttonFlexBetween'>
+                <Link data={prevStep}/>
+                <Button data={nextSep}/>
+            </div>
         </div>
     )
 };
