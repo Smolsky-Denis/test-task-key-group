@@ -12,12 +12,12 @@ export const Congratulations = (props) => {
         Your account has been created.</span>,
     }, btn = {
         name: 'Redirect to start',
+        color:'btn-outline',
         onClick: () => {
             dispatch({type: 'CLEAR_ALL'});
             props.history.push('/email');
         }
     };
-
     return (
         <div className={style.flexColumnCenter}>
             <Title data={message}/>

@@ -13,8 +13,8 @@ export const Select = (props) => {
                     <option value="">---Select---</option>
                     {options.map(option => <option key={option}>{option}</option>)}
                 </select>
-                <p className={validation ? 'validation text-danger' : ''}>{validation}</p>
             </div>
+            <p className={validation ? 'validation text-danger' : ''}>{validation}</p>
         </div>
     )
 };
