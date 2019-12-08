@@ -5,6 +5,18 @@ import {Input} from "../components/Input/Input";
 import {ProgressLine} from "../components/ProgressLine/ProgressLine";
 import React from "react";
 import {Link} from "../components/Link/Link";
+import {FormHeader} from "../components/FormHeader/FormHeader";
+import {getAllTimezones, getTimezone} from "countries-and-timezones";
+
+export const getCurrentTimezone = () => getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone).name;
+
+export const getTimezoneList = () => Object.values(getAllTimezones()).map(timezone => timezone.name);
+
+export const getGenderList = () => ["Male", "Female"];
+
+export const checkRequiredField = (field) => {
+    return field.length ? "" : "Field is required"
+};
 
 export const MapDataToPageElementsService = {
     elementTypeList: {
@@ -25,7 +37,10 @@ export const MapDataToPageElementsService = {
         },
         link: function (item) {
             return <Link key={item.id} data={item}/>
-        }
+        },
+        formHeader: function (item) {
+            return <FormHeader key={item.id} data={item}/>
+        },
     },
     getElementFormService: function (cardFields) {
         return cardFields && cardFields.map((item) => this.elementTypeList[item.element](item));
@@ -34,21 +49,17 @@ export const MapDataToPageElementsService = {
 
 
 const progress = () => {
-    let i=0;
-    let width= document.getElementById('progressBar').parentNode.clientWidth;
-    let id=setInterval(grow, 10);
+    let i = 0;
+    let width = document.getElementById('progressBar').parentNode.clientWidth;
+    let id = setInterval(grow, 10);
 
-    function grow()
-    {
-        if(i<width)
-        {
-            i+=1;
-            if(!document.getElementById('progressBar').setAttribute("style","width: "+i+"px;"))
+    function grow() {
+        if (i < width) {
+            i += 1;
+            if (!document.getElementById('progressBar').setAttribute("style", "width: " + i + "px;"))
                 document.getElementById('progressBar').style.width = i;
 
-        }
-        else
-        {
+        } else {
             alert('готово');
             clearInterval(id);
         }

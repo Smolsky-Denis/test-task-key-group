@@ -3,7 +3,8 @@ const InitialState = {
     firstName: '',
     lastName: '',
     gender: '',
-    company: ''
+    company: '',
+    timezone: ''
 };
 
 function formState(state = InitialState, actions) {
@@ -20,10 +21,21 @@ function formState(state = InitialState, actions) {
                 lastName: actions.payload.lastName,
                 gender: actions.payload.gender
             };
+        case "SAVE_TIMEZONE":
+            return {
+                ...state,
+                timezone: actions.timezone,
+            };
         case "SAVE_COMPANY":
             return {
                 ...state,
                 company: actions.company
+            };
+        case "SAVE_ALL":
+            debugger
+            return {
+                ...state,
+                ...actions.payload
             };
         default:
             return state;

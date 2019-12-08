@@ -44,6 +44,7 @@ export const EmailView = (props) => {
     ];
     const button = {
         path: '/user-info',
+        color: 'btn-pink',
         onClick: () => goToNextStep(),
         name: 'NEXT STEP'
     };

@@ -1,12 +1,23 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {createAccount} from "../../services/constants";
-import {MapDataToPageElementsService} from "../../services/utils";
+import {
+    checkRequiredField,
+    getCurrentTimezone,
+    getGenderList,
+    getTimezoneList,
+    MapDataToPageElementsService
+} from "../../services/utils";
 import {Button} from "../../components/Button/Button";
 import style from './CreateAccount.module.css'
+import {verifyEmail} from "../../actions/emailActions";
 
 
 export const CreateAccount = (props) => {
+
+    const timezoneList = getTimezoneList();
+    const genderList = getGenderList();
+
+    const formStateTimezone = useSelector(state => state.formState.timezone);
     const formStateEmail = useSelector(state => state.formState.email);
     const formStateFirstName = useSelector(state => state.formState.firstName);
     const formStateLastName = useSelector(state => state.formState.lastName);
@@ -18,16 +29,15 @@ export const CreateAccount = (props) => {
     const [lastName, setLastName] = useState(formStateLastName);
     const [gender, setGender] = useState(formStateGender);
     const [company, setCompany] = useState(formStateCompany);
+    const [timezone, setTimezone] = useState(formStateTimezone || getCurrentTimezone());
 
     const [emailValidation, setEmailValidation] = useState("");
     const [firstNameValidation, setFirstNameValidation] = useState("");
     const [lastNameValidation, setLastNameValidation] = useState("");
+    const [genderValidation, setGenderValidation] = useState("");
+    const [timezoneValidation, setTimezoneValidation] = useState("");
 
     const dispatch = useDispatch();
-
-    const checkRequiredField = (field) => {
-        return field.length ? "" : "Field is required"
-    };
 
     const pageFields = [
         {
@@ -76,16 +86,13 @@ export const CreateAccount = (props) => {
             element: 'select',
             placeholder: 'Gender',
             name: 'gender',
-            options: [{
-                name: "Male"
-            }, {
-                name: "Female"
-            }],
+            options: genderList,
             className: '',
             value: gender,
             onChange: (event) => {
                 setGender(event.target.value)
-            }
+            },
+            validation: genderValidation
         }, {
             id: 7,
             element: 'input',
@@ -101,23 +108,44 @@ export const CreateAccount = (props) => {
             id: 8,
             element: 'select',
             name: 'timeZone',
-            options: [{
-                name: "Minsk"
-            }],
             type: 'text',
             placeholder: 'Select your timezone',
-            className: ''
-        }, {
-            id: 9,
-            path: '/email',
-            element: 'link',
-            name: 'PREV STEP'
-        },
+            value: timezone,
+            options: timezoneList,
+            onChange: (event) => {
+                setTimezone(event.target.value)
+            },
+            validation: timezoneValidation
+        }
 
     ];
+
     const finish = () => {
-        props.history.push('/congratulations');
+        const firstNameError = checkRequiredField(firstName);
+        const lastNameError = checkRequiredField(lastName);
+        const genderError = checkRequiredField(gender);
+        const timezoneError = checkRequiredField(timezone);
+
+        setFirstNameValidation(firstNameError);
+        setLastNameValidation(lastNameError);
+        setGenderValidation(genderError);
+        setTimezoneValidation(timezoneError);
+
+        verifyEmail(JSON.stringify({email})).then((result) => {
+            if (result.status === 200) {
+                if(!firstNameError.length && !lastNameError.length && !genderError.length && !timezoneError.length){
+                    setEmailValidation("");
+                    dispatch({type: "SAVE_ALL", payload : {
+                            email, firstName, lastName, gender, company, timezone
+                        }});
+                    props.history.push('/congratulations');
+                }
+            } else {
+                setEmailValidation(result.email.join(". "))
+            }
+        });
     };
+
     const button = {
         className: 'form-control-lg',
         classButton: style.fullWidth,

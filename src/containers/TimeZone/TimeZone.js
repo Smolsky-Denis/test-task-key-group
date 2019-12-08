@@ -1,18 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {createAccount} from "../../services/constants";
-import {MapDataToPageElementsService} from "../../services/utils";
+import {
+    checkRequiredField,
+    getCurrentTimezone,
+    getTimezoneList,
+    MapDataToPageElementsService
+} from "../../services/utils";
 import {Button} from "../../components/Button/Button";
 import {Link} from "../../components/Link/Link";
-import {getAllTimezones, getTimezone} from 'countries-and-timezones';
+import {useDispatch, useSelector} from "react-redux";
 
 export const TimeZone = (props) => {
 
-    const currentTimezone = getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
-    const timezoneList = Object.values(getAllTimezones());
+    const timezoneList = getTimezoneList();
+
+    const formStateTimezone = useSelector(state => state.formState.timezone);
+    const [timezone, setTimezone] = useState(formStateTimezone || getCurrentTimezone());
+    const [timezoneValidation, setTimezoneValidation] = useState("");
+
+    const dispatch = useDispatch();
 
     const goToNextStep = () => {
-        props.history.push('/create-account');
+        const timezoneError = checkRequiredField(timezone);
+        setTimezoneValidation(timezoneError);
+        if(!timezoneError.length) {
+            dispatch({type: "SAVE_TIMEZONE", timezone});
+            props.history.push('/create-account');
+        }
     };
+
     const pageFields = [
         {
             id: 0,
@@ -26,10 +42,15 @@ export const TimeZone = (props) => {
             type: 'text',
             placeholder: 'Select your timezone',
             className: '',
-            value: currentTimezone,
-            options: timezoneList
+            value: timezone,
+            options: timezoneList,
+            onChange: (event) => {
+                setTimezone(event.target.value)
+            },
+            validation: timezoneValidation
         }
     ];
+
     const prevStep = {
         path: '/company',
         name: 'PREV STEP'

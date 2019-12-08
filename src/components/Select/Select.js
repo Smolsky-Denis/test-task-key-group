@@ -3,11 +3,20 @@ import './Select.css'
 
 export const Select = (props) => {
 
-    const {options = [], value, onChange} = props.data;
+    const {options = [], value, onChange, validation, name, placeholder} = props.data;
 
-    return (<Form.Control as="select" value={value} onChange={onChange}>
-            {options.map(option => <option key={option.name}>{option.name}</option>)}
-        </Form.Control>)
+    return (
+        <div className="form-group">
+            <div className='form-control form-control-lg selectHeight'>
+                <label htmlFor={name} className='h6 text-primary'>{value ? placeholder : ''}</label>
+                <select as="select" className='transparent selectMarginTop' value={value} onChange={onChange}>
+                    <option value="">---Select---</option>
+                    {options.map(option => <option key={option}>{option}</option>)}
+                </select>
+                <p className={validation ? 'validation text-danger' : ''}>{validation}</p>
+            </div>
+        </div>
+    )
 };
 
 

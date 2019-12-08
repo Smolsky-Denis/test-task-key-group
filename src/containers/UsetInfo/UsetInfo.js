@@ -1,29 +1,36 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {createAccount} from "../../services/constants";
-import {MapDataToPageElementsService} from "../../services/utils";
+import {checkRequiredField, getGenderList, MapDataToPageElementsService} from "../../services/utils";
 import {Button} from "../../components/Button/Button";
 import {Link} from "../../components/Link/Link";
 
 export const UserInfo = (props) => {
+
+    const genderList = getGenderList();
+
     const formStateFirstName = useSelector(state => state.formState.firstName);
     const formStateLastName = useSelector(state => state.formState.lastName);
     const formStateGender = useSelector(state => state.formState.gender);
+
     const [firstName, setFirstName] = useState(formStateFirstName);
     const [lastName, setLastName] = useState(formStateLastName);
     const [gender, setGender] = useState(formStateGender);
+
     const [firstNameValidation, setFirstNameValidation] = useState("");
     const [lastNameValidation, setLastNameValidation] = useState("");
+    const [genderValidation, setGenderValidation] = useState("");
+
     const dispatch = useDispatch();
-    const checkRequiredField = (field) => {
-        return field.length ? "" : "Field is required"
-    };
+
     const goToNextStep = () => {
         const firstNameError = checkRequiredField(firstName);
         const lastNameError = checkRequiredField(lastName);
+        const genderError = checkRequiredField(gender);
         setFirstNameValidation(firstNameError);
         setLastNameValidation(lastNameError);
-        if(!firstNameError.length && !lastNameError.length) {
+        setGenderValidation(genderError);
+        if(!firstNameError.length && !lastNameError.length && !genderError.length) {
             dispatch({type: "SAVE_USER_INFO", payload: {firstName, lastName, gender}});
             props.history.push('/company');
         }
@@ -62,16 +69,13 @@ export const UserInfo = (props) => {
             id: 5,
             element: 'select',
             name: 'gender',
-            options: [{
-                name: "Male"
-            }, {
-                name: "Female"
-            }],
-            className: '',
+            placeholder: 'Gender',
+            options: genderList,
             value: gender,
             onChange: (event) => {
                 setGender(event.target.value)
-            }
+            },
+            validation: genderValidation
         },
     ];
     const prevStep = {
