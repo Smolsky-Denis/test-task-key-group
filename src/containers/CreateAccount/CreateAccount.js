@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {createAccount} from "../../services/constants";
 import {MapDataToPageElementsService} from "../../services/utils";
 import {Button} from "../../components/Button/Button";
+import style from './CreateAccount.module.css'
 
 
 export const CreateAccount = (props) => {
@@ -34,7 +35,9 @@ export const CreateAccount = (props) => {
             element: 'title',
             text: 'Company',
             className: ''
-        }, createAccount, {
+        },
+        createAccount,
+        {
             id: 2,
             element: 'progress',
             progress: 100
@@ -119,18 +122,25 @@ export const CreateAccount = (props) => {
     ];
     const finish = () => {
         props.history.push('/congratulations');
-    }
+    };
     const button = {
+        className: 'form-control-lg',
+        classButton: style.fullWidth,
         onClick: () => finish(),
         name: 'Create account'
     };
-    let result = MapDataToPageElementsService.getElementFormService(pageFields);
+    const title = {
+      text: <span>Check your data</span>
+    };
+
+    const result = MapDataToPageElementsService.getElementFormService(pageFields);
     return (
         <div>
-            {result}
             <div>
-                <Button data={button}/>
+
             </div>
+            {result}
+            <Button data={button}/>
         </div>
     )
 };

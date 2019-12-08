@@ -2,7 +2,7 @@ import React from 'react';
 import './Button.css'
 
 export const Button = (props) => {
-    const {name, onClick} = props.data;
+    const {name, onClick, classButton} = props.data;
     // {/*<button type="button" className="btn btn-primary">Главный</button>*/}
     // {/*< button*/}
     // {/*type = "button"*/}
@@ -23,8 +23,8 @@ export const Button = (props) => {
     // {/*<button type="button" className="btn btn-link">Линк</button>*/}
 
     return (
-        <div>
-            <button className='btn btn-pink' onClick={onClick} type="button">{name}</button>
+        <div className='form-control-lg'>
+            <button className={'btn btn-pink ' + classButton} onClick={onClick} type="button">{name}</button>
         </div>
     )
 };
