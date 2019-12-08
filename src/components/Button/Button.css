@@ -9,3 +9,15 @@
     color: #fff;
     font-weight: bold;
 }
+
+.btn-outline {
+    background-color: #fff;
+    color: #636f73;
+    font-weight: bold;
+}
+
+.btn-outline:hover, .btn-outline:focus, .btn-outline.focus {
+    background-color: #636f73;
+    color: #fff;
+    font-weight: bold;
+}

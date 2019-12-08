@@ -1,21 +1,27 @@
 import React from 'react';
 import {Title} from "../../components/Title/Title";
 import style from './Congratulations.module.css'
-import {Link} from "../../components/Link/Link";
+import {Button} from "../../components/Button/Button";
+import {useDispatch} from "react-redux";
 
 export const Congratulations = (props) => {
+    const dispatch = useDispatch();
+
     const message = {
         text: <span>Congratulations. <br/>
         Your account has been created.</span>,
-        // className: style.flexRowCenter
-    }, linkToStart = {
+    }, btn = {
         name: 'Redirect to start',
-        path: '/email'
+        onClick: () => {
+            dispatch({type: 'CLEAR_ALL'});
+            props.history.push('/email');
+        }
     };
+
     return (
         <div className={style.flexColumnCenter}>
-                <Title data={message}/>
-            <Link data={linkToStart}/>
+            <Title data={message}/>
+            <Button data={btn}/>
         </div>
 
     )

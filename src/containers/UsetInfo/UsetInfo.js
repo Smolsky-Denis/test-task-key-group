@@ -1,25 +1,27 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {createAccount} from "../../services/constants";
-import {checkRequiredField, getGenderList, MapDataToPageElementsService} from "../../services/utils";
+import React from 'react';
+import {useDispatch} from "react-redux";
+import {checkRequiredField, MapDataToPageElementsService} from "../../services/utils";
 import {Button} from "../../components/Button/Button";
 import {Link} from "../../components/Link/Link";
+import {useUserInfo} from "./useUserInfo";
 
 export const UserInfo = (props) => {
 
-    const genderList = getGenderList();
-
-    const formStateFirstName = useSelector(state => state.formState.firstName);
-    const formStateLastName = useSelector(state => state.formState.lastName);
-    const formStateGender = useSelector(state => state.formState.gender);
-
-    const [firstName, setFirstName] = useState(formStateFirstName);
-    const [lastName, setLastName] = useState(formStateLastName);
-    const [gender, setGender] = useState(formStateGender);
-
-    const [firstNameValidation, setFirstNameValidation] = useState("");
-    const [lastNameValidation, setLastNameValidation] = useState("");
-    const [genderValidation, setGenderValidation] = useState("");
+    const {
+        genderList,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        gender,
+        setGender,
+        firstNameValidation,
+        setFirstNameValidation,
+        lastNameValidation,
+        setLastNameValidation,
+        genderValidation,
+        setGenderValidation
+    } = useUserInfo();
 
     const dispatch = useDispatch();
 
@@ -30,7 +32,7 @@ export const UserInfo = (props) => {
         setFirstNameValidation(firstNameError);
         setLastNameValidation(lastNameError);
         setGenderValidation(genderError);
-        if(!firstNameError.length && !lastNameError.length && !genderError.length) {
+        if (!firstNameError.length && !lastNameError.length && !genderError.length) {
             dispatch({type: "SAVE_USER_INFO", payload: {firstName, lastName, gender}});
             props.history.push('/company');
         }
@@ -39,7 +41,8 @@ export const UserInfo = (props) => {
         {
             id: 0,
             element: 'formHeader',
-            text: <span>Let's introduce ourselves!<br/> Your name will be displayed in all reports, documents, etc.</span>,
+            text:
+                <span>Let's introduce ourselves!<br/> Your name will be displayed in all reports, documents, etc.</span>,
             progress: 40
         }, {
             id: 3,
@@ -79,11 +82,13 @@ export const UserInfo = (props) => {
         },
     ];
     const prevStep = {
-            path: '/email',
-            name: 'PREV STEP'
-        }, nextSep = {
+        path: '/email',
+        color: 'btn-outline',
+        name: '< PREV STEP'
+    }, nextSep = {
         onClick: () => goToNextStep(),
-        name: 'NEXT STEP'
+        color: 'btn-pink',
+        name: 'NEXT STEP >'
     };
 
     let result = MapDataToPageElementsService.getElementFormService(pageFields);

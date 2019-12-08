@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
-import {createAccount} from "../../services/constants";
+import React from 'react';
 import {MapDataToPageElementsService} from "../../services/utils";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {Link} from "../../components/Link/Link";
 import {Button} from "../../components/Button/Button";
+import {useCompanyConfig} from "./useCompanyConfig";
 
 
 export const Company = (props) => {
-    const formStateCompany = useSelector(state => state.formState.company);
-    const [company, setCompany] = useState(formStateCompany);
+    const {company, setCompany} = useCompanyConfig();
     const dispatch = useDispatch();
 
     const goToNextStep = () => {
@@ -36,11 +35,13 @@ export const Company = (props) => {
     ];
     const prevStep = {
             path: '/user-info',
-            name: 'PREV STEP'
+            color: 'btn-outline',
+            name: '< PREV STEP'
         },
         nextSep = {
             onClick: () => goToNextStep(),
-            name: 'NEXT STEP'
+            name: company && company.length ? 'NEXT STEP >' : "SKIP THIS STEP >",
+            color: 'btn-pink',
         };
 
     let result = MapDataToPageElementsService.getElementFormService(pageFields);

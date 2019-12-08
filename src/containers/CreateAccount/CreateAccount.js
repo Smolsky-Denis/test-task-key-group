@@ -2,40 +2,45 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     checkRequiredField,
-    getCurrentTimezone,
     getGenderList,
-    getTimezoneList,
     MapDataToPageElementsService
 } from "../../services/utils";
 import {Button} from "../../components/Button/Button";
 import style from './CreateAccount.module.css'
 import {verifyEmail} from "../../actions/emailActions";
+import {useEmailViewConfig} from "../Email/useEmailViewConfig";
+import {useCompanyConfig} from "../Company/useCompanyConfig";
+import {useTimezoneConfig} from "../TimeZone/useTimezoneConfig";
+import {useUserInfo} from "../UsetInfo/useUserInfo";
 
 
 export const CreateAccount = (props) => {
 
-    const timezoneList = getTimezoneList();
-    const genderList = getGenderList();
+    const {email, setEmail, emailValidation, setEmailValidation} = useEmailViewConfig();
+    const {company, setCompany} = useCompanyConfig();
+    const {
+        timezone,
+        setTimezone,
+        timezoneValidation,
+        setTimezoneValidation,
+        timezoneList
+    } = useTimezoneConfig();
 
-    const formStateTimezone = useSelector(state => state.formState.timezone);
-    const formStateEmail = useSelector(state => state.formState.email);
-    const formStateFirstName = useSelector(state => state.formState.firstName);
-    const formStateLastName = useSelector(state => state.formState.lastName);
-    const formStateGender = useSelector(state => state.formState.gender);
-    const formStateCompany = useSelector(state => state.formState.company);
-
-    const [email, setEmail] = useState(formStateEmail);
-    const [firstName, setFirstName] = useState(formStateFirstName);
-    const [lastName, setLastName] = useState(formStateLastName);
-    const [gender, setGender] = useState(formStateGender);
-    const [company, setCompany] = useState(formStateCompany);
-    const [timezone, setTimezone] = useState(formStateTimezone || getCurrentTimezone());
-
-    const [emailValidation, setEmailValidation] = useState("");
-    const [firstNameValidation, setFirstNameValidation] = useState("");
-    const [lastNameValidation, setLastNameValidation] = useState("");
-    const [genderValidation, setGenderValidation] = useState("");
-    const [timezoneValidation, setTimezoneValidation] = useState("");
+    const {
+        genderList,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        gender,
+        setGender,
+        firstNameValidation,
+        setFirstNameValidation,
+        lastNameValidation,
+        setLastNameValidation,
+        genderValidation,
+        setGenderValidation
+    } = useUserInfo();
 
     const dispatch = useDispatch();
 
@@ -133,11 +138,13 @@ export const CreateAccount = (props) => {
 
         verifyEmail(JSON.stringify({email})).then((result) => {
             if (result.status === 200) {
-                if(!firstNameError.length && !lastNameError.length && !genderError.length && !timezoneError.length){
+                if (!firstNameError.length && !lastNameError.length && !genderError.length && !timezoneError.length) {
                     setEmailValidation("");
-                    dispatch({type: "SAVE_ALL", payload : {
+                    dispatch({
+                        type: "SAVE_ALL", payload: {
                             email, firstName, lastName, gender, company, timezone
-                        }});
+                        }
+                    });
                     props.history.push('/congratulations');
                 }
             } else {
@@ -149,11 +156,12 @@ export const CreateAccount = (props) => {
     const button = {
         className: 'form-control-lg',
         classButton: style.fullWidth,
+        color: 'btn-pink',
         onClick: () => finish(),
         name: 'Create account'
     };
     const title = {
-      text: <span>Check your data</span>
+        text: <span>Check your data</span>
     };
 
     const result = MapDataToPageElementsService.getElementFormService(pageFields);

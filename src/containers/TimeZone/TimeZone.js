@@ -1,22 +1,22 @@
-import React, {useState} from 'react';
-import {createAccount} from "../../services/constants";
+import React from 'react';
 import {
     checkRequiredField,
-    getCurrentTimezone,
-    getTimezoneList,
     MapDataToPageElementsService
 } from "../../services/utils";
 import {Button} from "../../components/Button/Button";
 import {Link} from "../../components/Link/Link";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {useTimezoneConfig} from "./useTimezoneConfig";
 
 export const TimeZone = (props) => {
 
-    const timezoneList = getTimezoneList();
-
-    const formStateTimezone = useSelector(state => state.formState.timezone);
-    const [timezone, setTimezone] = useState(formStateTimezone || getCurrentTimezone());
-    const [timezoneValidation, setTimezoneValidation] = useState("");
+    const {
+        timezone,
+        setTimezone,
+        timezoneValidation,
+        setTimezoneValidation,
+        timezoneList
+    } = useTimezoneConfig();
 
     const dispatch = useDispatch();
 
@@ -53,10 +53,12 @@ export const TimeZone = (props) => {
 
     const prevStep = {
         path: '/company',
-        name: 'PREV STEP'
+        name: '< PREV STEP',
+        color: 'btn-outline'
     }, nextSep = {
         onClick: () => goToNextStep(),
-        name: 'NEXT STEP'
+        name: 'NEXT STEP >',
+        color: 'btn-pink'
     };
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
     return (

@@ -32,10 +32,14 @@ function formState(state = InitialState, actions) {
                 company: actions.company
             };
         case "SAVE_ALL":
-            debugger
             return {
                 ...state,
                 ...actions.payload
+            };
+        case "CLEAR_ALL":
+            return {
+                ...state,
+                ...InitialState
             };
         default:
             return state;

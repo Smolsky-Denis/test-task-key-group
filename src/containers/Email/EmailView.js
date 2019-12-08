@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import stile from './EmailView.module.css'
 import {MapDataToPageElementsService} from "../../services/utils";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {verifyEmail} from "../../actions/emailActions";
 import {Button} from "../../components/Button/Button";
+import {useEmailViewConfig} from "./useEmailViewConfig";
 
 
 export const EmailView = (props) => {
-    const formStateEmail = useSelector(state => state.formState.email);
-    const [email, setEmail] = useState(formStateEmail);
-    const [emailValidation, setEmailValidation] = useState("");
+    const {email, setEmail, emailValidation, setEmailValidation} = useEmailViewConfig();
     const dispatch = useDispatch();
     const goToNextStep = () => {
         verifyEmail(JSON.stringify({email})).then((result) => {
@@ -46,7 +45,7 @@ export const EmailView = (props) => {
         path: '/user-info',
         color: 'btn-pink',
         onClick: () => goToNextStep(),
-        name: 'NEXT STEP'
+        name: 'NEXT STEP >'
     };
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
     return (

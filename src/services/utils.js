@@ -47,25 +47,6 @@ export const MapDataToPageElementsService = {
     }
 };
 
-
-const progress = () => {
-    let i = 0;
-    let width = document.getElementById('progressBar').parentNode.clientWidth;
-    let id = setInterval(grow, 10);
-
-    function grow() {
-        if (i < width) {
-            i += 1;
-            if (!document.getElementById('progressBar').setAttribute("style", "width: " + i + "px;"))
-                document.getElementById('progressBar').style.width = i;
-
-        } else {
-            alert('готово');
-            clearInterval(id);
-        }
-    }
-};
-
 export let postRequest = (url, request) => {
     let promise = new Promise((resolve, reject) => {
         fetch(url, {
