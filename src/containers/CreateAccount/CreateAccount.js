@@ -32,14 +32,8 @@ export const CreateAccount = (props) => {
     const pageFields = [
         {
             id: 0,
-            element: 'title',
-            text: 'Company',
-            className: ''
-        },
-        createAccount,
-        {
-            id: 2,
-            element: 'progress',
+            element: 'formHeader',
+            text: <span>Check your data</span>,
             progress: 100
         }, {
             id: 3,
@@ -80,6 +74,7 @@ export const CreateAccount = (props) => {
         }, {
             id: 6,
             element: 'select',
+            placeholder: 'Gender',
             name: 'gender',
             options: [{
                 name: "Male"

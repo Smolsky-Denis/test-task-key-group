@@ -10,9 +10,7 @@
     height: 10px;
     background-color: #f00;
 }
-.height {
-    height: 45px;
-}
+
 label {
     display: block;
     margin: 0!important;
@@ -20,13 +18,6 @@ label {
 }
 .validation {
     margin-top: 8px;
-}
-.marginTop {
-    margin-top: 5px;
-}
-.transparent {
-    width: 100%;
-    border: transparent!important;
 }
 .buttonFlexBetween {
     display: flex;

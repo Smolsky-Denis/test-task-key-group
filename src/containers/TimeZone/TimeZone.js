@@ -16,12 +16,8 @@ export const TimeZone = (props) => {
     const pageFields = [
         {
             id: 0,
-            element: 'title',
-            text: 'Time Zone',
-            className: ''
-        }, createAccount, {
-            id: 2,
-            element: 'progress',
+            element: 'formHeader',
+            text: <span>Set your time zone</span>,
             progress: 80
         }, {
             id: 3,

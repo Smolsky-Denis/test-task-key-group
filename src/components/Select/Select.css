@@ -1,0 +1,11 @@
+.selectMarginTop {
+    margin-top: 5px;
+}
+.transparent {
+    width: 100%;
+    border: transparent!important;
+    outline: none;
+}
+.selectHeight {
+    height: 45px;
+}

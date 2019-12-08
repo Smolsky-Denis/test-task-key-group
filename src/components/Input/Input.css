@@ -1,0 +1,12 @@
+.inputMarginTop {
+    margin-top: 5px;
+}
+.transparent {
+    width: 100%;
+    border: transparent!important;
+    outline: none;
+}
+
+.inputHeight {
+    height: 45px;
+}

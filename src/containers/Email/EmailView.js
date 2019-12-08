@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
+import stile from './EmailView.module.css'
 import {MapDataToPageElementsService} from "../../services/utils";
 import {useDispatch, useSelector} from "react-redux";
 import {verifyEmail} from "../../actions/emailActions";
-import {Title} from "../../components/Title/Title";
 import {Button} from "../../components/Button/Button";
 
 
@@ -24,19 +24,13 @@ export const EmailView = (props) => {
     };
 
     const pageFields = [
-        // {
-        //     id: 0,
-        //     element: 'title',
-        //     text: 'title EMAIL',
-        //     className: ''
-        // },
-        // createAccount,
         {
-            id: 2,
-            element: 'progress',
+            id: 0,
+            element: 'formHeader',
+            text: <span>Create your VINchain account.<br/> Easy to use anytime, anywhere for everyone</span>,
             progress: 20
         }, {
-            id: 3,
+            id: 1,
             element: 'input',
             name: 'email',
             placeholder: 'E-mail',
@@ -53,18 +47,11 @@ export const EmailView = (props) => {
         onClick: () => goToNextStep(),
         name: 'NEXT STEP'
     };
-
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
-    const title = {
-        text: <span>Create your VINchain account.<br/> Easy to use anytime, anywhere for everyone</span>
-    };
     return (
         <div>
-            <Title data={title}/>
-            {/*<Title text='CREATE ACCOUNT'/>*/}
             {result}
-
-            <div>
+            <div className={stile.emailButtonEnd}>
                 <Button data={button}/>
             </div>
         </div>

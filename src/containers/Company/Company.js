@@ -18,12 +18,8 @@ export const Company = (props) => {
     const pageFields = [
         {
             id: 0,
-            element: 'title',
-            text: 'Company',
-            className: ''
-        }, createAccount, {
-            id: 2,
-            element: 'progress',
+            element: 'formHeader',
+            text: <span>Tracking company vehicles? (optional)</span>,
             progress: 60
         }, {
             id: 3,

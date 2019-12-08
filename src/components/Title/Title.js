@@ -2,9 +2,9 @@ import React from 'react';
 
 
 export const Title = (props) => {
-const {text, className} = props.data;
+const {text} = props.data;
     return (
-        <div className={className || 'text-secondary h2'}>
+        <div className='text-secondary h2'>
             {text}
         </div>
     )

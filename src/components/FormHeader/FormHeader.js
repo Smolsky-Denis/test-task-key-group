@@ -1,9 +1,17 @@
 import React from 'react';
+import './FormHeader.css'
+import {Title} from "../Title/Title";
+import {ProgressLine} from "../ProgressLine/ProgressLine";
 
 
-const FormHeader = () => {
-
-    return(
-        <h2>FormHeader</h2>
+export const FormHeader = (props) => {
+    return (
+        <div className={'formHeaderSettings'}>
+            <Title data={props.data}/>
+            <div>
+                <span className='text-dark h4'>CREATE ACCOUNT</span>
+            </div>
+            <ProgressLine data={props.data}/>
+        </div>
     )
 };

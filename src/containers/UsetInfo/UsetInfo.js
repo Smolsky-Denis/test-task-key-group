@@ -31,12 +31,8 @@ export const UserInfo = (props) => {
     const pageFields = [
         {
             id: 0,
-            element: 'title',
-            text: 'USER INFO',
-            className: ''
-        }, createAccount, {
-            id: 2,
-            element: 'progress',
+            element: 'formHeader',
+            text: <span>Let's introduce ourselves!<br/> Your name will be displayed in all reports, documents, etc.</span>,
             progress: 40
         }, {
             id: 3,

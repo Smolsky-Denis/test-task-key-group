@@ -1,0 +1,8 @@
+.formHeaderSettings {
+    height: 35vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
