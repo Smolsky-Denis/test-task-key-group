@@ -117,8 +117,11 @@ export const CreateAccount = (props) => {
         },
 
     ];
+    const finish = () => {
+        props.history.push('/congratulations');
+    }
     const button = {
-        onClick: () => {},
+        onClick: () => finish(),
         name: 'Create account'
     };
     let result = MapDataToPageElementsService.getElementFormService(pageFields);
